@@ -10,8 +10,6 @@ int encryptf(FILE * fp)
 {
         //read file to str pointer
         char * plain;
-//        plain=readf2str(fp);
-
         int fsize;
         fseek(fp,0,SEEK_END);
         fsize=ftell(fp);
@@ -68,19 +66,14 @@ int encryptf(FILE * fp)
              fwrite(encrypted,encrylen,1,ffp);
              fclose(ffp);
         }
-
-        printf("in encryptf func, encrypted in hexadecimal\n%x\n\n",encrypted);
 }
 
 int decryptf(FILE * fp)
 {
         //read file to str pointer
 	    char * encrypted;
-//        encrypted=readf2str(fp);
-
         encrypted=(char *)malloc(encrylen * sizeof(char));
         fread(encrypted,encrylen,1,fp);
-	    printf("in decryptf func, read encrypted file in hexadecimal:\n%x\n",encrypted);
         fclose(fp);
 
         char decrypted[1024];
@@ -97,7 +90,6 @@ int decryptf(FILE * fp)
         	printf("failed to open priv_key file %s!\n", priv_key);
         	return -1;
     	}
-   
 
     	// read private key from private key file
     	RSA *rsa2 = PEM_read_RSAPrivateKey(priv_fp, NULL, NULL, NULL);
@@ -118,7 +110,6 @@ int decryptf(FILE * fp)
         printf("in decryptf func, decrylen is:\n%d\n",decrylen);
 
     	// output decrypted plain text
-    	printf("in decryptf func, decrypted in hexadecimal \n%x\n",decrypted);
         printf("in decryptf func, decrypted string is \n%s\n",decrypted);
 
         // output decrypted data to a new file
